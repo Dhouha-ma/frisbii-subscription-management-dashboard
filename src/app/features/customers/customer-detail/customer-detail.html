@@ -16,4 +16,51 @@
     <p><strong>Company:</strong> {{ customer()?.company }}</p>
     <p><strong>Created:</strong> {{ customer()?.created | date }}</p>
   </div>
+
+  <h3 class="section-title">Invoices</h3>
+
+  @if (invoicesLoading()) {
+    <p>Loading invoices...</p>
+  }
+
+  @if (invoicesError()) {
+    <p class="error">{{ invoicesError() }}</p>
+  }
+
+  @if (!invoicesLoading() && !invoicesError()) {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Handle</th>
+            <th>State</th>
+            <th>Amount</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (inv of invoices(); track inv.handle) {
+            <tr>
+              <td class="handle">{{ inv.handle }}</td>
+
+              <td>
+                <span class="badge" [class]="'badge--' + invoiceBadge(inv.state)">
+                  {{ invoiceBadge(inv.state) }}
+                </span>
+              </td>
+
+              <td class="amount">{{ inv.amount }} {{ inv.currency }}</td>
+
+              <td>{{ inv.created | date: 'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (invoices().length === 0) {
+      <p class="muted">No invoices found.</p>
+    }
+  }
 }

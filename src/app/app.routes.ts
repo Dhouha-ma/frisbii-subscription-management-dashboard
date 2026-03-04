@@ -12,16 +12,16 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/customers/customer-detail/customer-detail').then((m) => m.CustomerDetail),
   },
-  // {
-  //   path: 'subscriptions',
-  //   loadComponent: () =>
-  //     import('./features/subscriptions/subscription-list/subscription-list').then(
-  //       (m) => m.SubscriptionList,
-  //     ),
-  // },
-  // {
-  //   path: 'invoices',
-  //   loadComponent: () =>
-  //     import('./features/invoices/invoice-list/invoice-list').then((m) => m.InvoiceList),
-  // },
+  {
+    path: 'subscriptions',
+    loadComponent: () =>
+      import('./features/subscriptions/subscription-list/subscription-list').then(
+        (m) => m.SubscriptionList,
+      ),
+  },
+  {
+    path: 'invoices',
+    loadComponent: () =>
+      import('./features/invoices/invoice-list/invoice-list').then((m) => m.InvoiceList),
+  },
 ];
