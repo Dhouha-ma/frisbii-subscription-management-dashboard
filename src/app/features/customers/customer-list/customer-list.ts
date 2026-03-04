@@ -1,31 +1,33 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
 
 @Component({
   selector: 'app-customer-list',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.scss',
 })
-export class CustomerList {
+export class CustomerList implements OnInit {
   private customerService = inject(CustomerService);
 
-  customers = signal<Customer[]>([]);
-  loading = signal(false);
-  error = signal<string | null>(null);
+  public customers = signal<Customer[]>([]);
+  public loading = signal(false);
+  public error = signal<string | null>(null);
 
-  ngOnInit() {
-    this.load();
+  ngOnInit(): void {
+    this.loadCustomers();
   }
 
-  load() {
+  private loadCustomers() {
     this.loading.set(true);
 
-    this.customerService.list().subscribe({
-      next: (data) => {
-        this.customers.set(data);
+    this.customerService.getCustomers().subscribe({
+      next: (customers) => {
+        console.log('Customers:', customers);
+        this.customers.set(customers);
         this.loading.set(false);
       },
       error: () => {

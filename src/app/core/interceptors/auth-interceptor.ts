@@ -2,12 +2,14 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: 'Basic ' + btoa(environment.apiKey + ':'),
-    },
-  });
+export const authInterceptor: HttpInterceptorFn = (request, next) => {
+  const token = btoa(`${environment.apiKey}:`);
 
-  return next(authReq);
+  return next(
+    request.clone({
+      setHeaders: {
+        Authorization: `Basic ${token}`,
+      },
+    }),
+  );
 };

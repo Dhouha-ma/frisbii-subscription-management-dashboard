@@ -1,1 +1,35 @@
-<p>customers list</p>
+<h2>Customers</h2>
+
+@if (loading()) {
+  <p>Loading customers...</p>
+}
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+}
+
+@if (!loading() && !error()) {
+  <table>
+    <thead>
+      <tr>
+        <th>Handle</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (customer of customers(); track customer.handle) {
+        <tr>
+          <td>{{ customer.handle }}</td>
+          <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.company }}</td>
+          <td>{{ customer.created | date: 'short' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

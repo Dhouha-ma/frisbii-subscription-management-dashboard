@@ -1,0 +1,51 @@
+h2 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+thead {
+  background: #f9fafb;
+}
+
+th {
+  text-align: left;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+  padding: 14px;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #111827;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+td:first-child {
+  font-family: monospace;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.error {
+  color: #dc2626;
+  font-weight: 500;
+  margin-top: 10px;
+}
