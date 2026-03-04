@@ -1,5 +1,14 @@
 <h2>Customers</h2>
 
+<div class="toolbar">
+  <input
+    #searchInput
+    type="search"
+    placeholder="Search by handle..."
+    (input)="onSearch(searchInput.value)"
+  />
+</div>
+
 @if (loading()) {
   <p>Loading customers...</p>
 }
@@ -21,7 +30,7 @@
     </thead>
 
     <tbody>
-      @for (customer of customers(); track customer.handle) {
+      @for (customer of filteredCustomers(); track customer.handle) {
         <tr>
           <td>{{ customer.handle }}</td>
           <td>{{ customer.first_name }} {{ customer.last_name }}</td>

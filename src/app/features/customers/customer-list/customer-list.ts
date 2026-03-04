@@ -11,23 +11,40 @@ import { CustomerService } from '../../../core/services/customer';
   styleUrl: './customer-list.scss',
 })
 export class CustomerList implements OnInit {
-  private customerService = inject(CustomerService);
-
-  public customers = signal<Customer[]>([]);
+  public filteredCustomers = signal<Customer[]>([]);
   public loading = signal(false);
   public error = signal<string | null>(null);
 
-  ngOnInit(): void {
+  private customers = signal<Customer[]>([]);
+
+  private customerService = inject(CustomerService);
+
+  ngOnInit() {
     this.loadCustomers();
+  }
+
+  public onSearch(value: string) {
+    const term = value.toLowerCase();
+
+    if (!term) {
+      this.filteredCustomers.set(this.customers());
+      return;
+    }
+
+    const filtered = this.customers().filter((customer) =>
+      customer.handle.toLowerCase().includes(term),
+    );
+
+    this.filteredCustomers.set(filtered);
   }
 
   private loadCustomers() {
     this.loading.set(true);
 
-    this.customerService.getCustomers().subscribe({
-      next: (customers) => {
-        console.log('Customers:', customers);
-        this.customers.set(customers);
+    this.customerService.getCustomers(20).subscribe({
+      next: (data) => {
+        this.customers.set(data);
+        this.filteredCustomers.set(data);
         this.loading.set(false);
       },
       error: () => {
