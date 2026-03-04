@@ -55,33 +55,65 @@
 .badge--created {
   background: var(--gray-light);
   color: var(--gray-text);
+  border-color: var(--gray-border);
 }
 
 .badge--pending {
-  background: #fff7ed;
-  color: #9a3412;
-  border-color: #fed7aa;
+  background: var(--orange-light);
+  color: var(--orange);
+  border-color: var(--orange-border);
 }
 
 .badge--settled {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #a7f3d0;
+  background: var(--green-light);
+  color: var(--green);
+  border-color: var(--green-border);
 }
 
 .badge--authorized {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border-color: #bfdbfe;
+  background: var(--blue-light);
+  color: var(--blue);
+  border-color: var(--blue-border);
 }
 
 .badge--failed {
-  background: #fef2f2;
+  background: var(--red-light);
   color: var(--red);
-  border-color: #fecaca;
+  border-color: var(--red-border);
+}
+
+.badge--active {
+  background: var(--green-light);
+  color: var(--green);
+  border-color: var(--green-border);
+}
+
+.badge--on_hold {
+  background: var(--orange-light);
+  color: var(--orange);
+  border-color: var(--orange-border);
 }
 
 .badge--unknown {
   background: var(--gray-light);
   color: var(--gray-text);
+}
+
+.action-button {
+  border: 1px solid var(--gray-border);
+  background: var(--white);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: var(--gray-light);
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

@@ -1,3 +1,7 @@
+export interface PageList<T> {
+  content: T[];
+}
+
 export interface Invoice {
   id?: string;
   handle: string;

@@ -40,19 +40,19 @@
         </thead>
 
         <tbody>
-          @for (inv of invoices(); track inv.handle) {
+          @for (invoice of invoices(); track invoice.handle) {
             <tr>
-              <td class="handle">{{ inv.handle }}</td>
+              <td class="handle">{{ invoice.handle }}</td>
 
               <td>
-                <span class="badge" [class]="'badge--' + invoiceBadge(inv.state)">
-                  {{ invoiceBadge(inv.state) }}
+                <span class="badge" [class]="'badge--' + invoiceBadge(invoice.state)">
+                  {{ invoiceBadge(invoice.state) }}
                 </span>
               </td>
 
-              <td class="amount">{{ inv.amount }} {{ inv.currency }}</td>
+              <td class="amount">{{ invoice.amount }} {{ invoice.currency }}</td>
 
-              <td>{{ inv.created | date: 'short' }}</td>
+              <td>{{ invoice.created | date: 'short' }}</td>
             </tr>
           }
         </tbody>
@@ -61,6 +61,84 @@
 
     @if (invoices().length === 0) {
       <p class="muted">No invoices found.</p>
+    }
+  }
+
+  <h3 class="section-title">Subscriptions</h3>
+
+  @if (subscriptionsLoading()) {
+    <p>Loading subscriptions...</p>
+  }
+
+  @if (subscriptionsError()) {
+    <p class="error">{{ subscriptionsError() }}</p>
+  }
+
+  @if (!subscriptionsLoading() && !subscriptionsError()) {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Handle</th>
+            <th>State</th>
+            <th>Plan</th>
+            <th>Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (subscription of subscriptions(); track subscription.handle) {
+            <tr>
+              <td class="handle">{{ subscription.handle }}</td>
+
+              <td>
+                <span class="badge" [class]="'badge--' + subscriptionBadge(subscription.state)">
+                  {{ subscriptionBadge(subscription.state) }}
+                </span>
+              </td>
+
+              <td>{{ subscription.plan ?? '—' }}</td>
+              <td>{{ subscription.created | date: 'short' }}</td>
+
+              <td>
+                @if (subscriptionBadge(subscription.state) === 'active') {
+                  <button
+                    type="button"
+                    class="action-button"
+                    (click)="pauseSubscription(subscription)"
+                    [disabled]="subscriptionActionLoading() === subscription.handle"
+                  >
+                    Pause
+                  </button>
+                }
+
+                @if (subscriptionBadge(subscription.state) === 'on_hold') {
+                  <button
+                    type="button"
+                    class="action-button"
+                    (click)="unpauseSubscription(subscription)"
+                    [disabled]="subscriptionActionLoading() === subscription.handle"
+                  >
+                    Unpause
+                  </button>
+                }
+
+                @if (
+                  subscriptionBadge(subscription.state) !== 'active' &&
+                  subscriptionBadge(subscription.state) !== 'on_hold'
+                ) {
+                  <span class="muted">—</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (subscriptions().length === 0) {
+      <p class="muted">No subscriptions found.</p>
     }
   }
 }

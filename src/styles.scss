@@ -7,6 +7,7 @@ body {
 
 :root {
   --white: #ffffff;
+
   --gray-light: #f9fafb;
   --gray-border: #e5e7eb;
   --gray-text: #374151;
@@ -17,7 +18,21 @@ body {
   --sidebar-active: #465574;
   --sidebar-text: #cfd6e4;
 
+  --green-light: #ecfdf5;
+  --green: #047857;
+  --green-border: #a7f3d0;
+
+  --blue-light: #eff6ff;
+  --blue: #1d4ed8;
+  --blue-border: #bfdbfe;
+
+  --orange-light: #fff7ed;
+  --orange: #9a3412;
+  --orange-border: #fed7aa;
+
+  --red-light: #fef2f2;
   --red: #dc2626;
+  --red-border: #fecaca;
 }
 
 h2 {
