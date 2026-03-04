@@ -8,14 +8,14 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 12px;
-  background: white;
+  background: var(--white);
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-border);
 }
 
 thead {
-  background: #f9fafb;
+  background: var(--gray-light);
 }
 
 th {
@@ -23,29 +23,29 @@ th {
   padding: 14px;
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--gray-text);
+  border-bottom: 1px solid var(--gray-border);
 }
 
 td {
   padding: 14px;
   font-size: 14px;
-  border-bottom: 1px solid #f1f5f9;
-  color: #111827;
+  border-bottom: 1px solid var(--gray-border);
+  color: var(--gray-dark);
 }
 
 tbody tr:hover {
-  background: #f9fafb;
+  background: var(--gray-light);
 }
 
 td:first-child {
   font-family: monospace;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--gray-text);
 }
 
 .error {
-  color: #dc2626;
+  color: var(--red);
   font-weight: 500;
   margin-top: 10px;
 }
@@ -57,13 +57,13 @@ td:first-child {
 .toolbar input {
   width: 300px;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--gray-border);
   border-radius: 8px;
   font-size: 14px;
   outline: none;
 }
 
 .toolbar input:focus {
-  border-color: #3b82f6;
+  border-color: var(--blue);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
 }
