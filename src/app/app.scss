@@ -5,8 +5,8 @@
 }
 
 .sidebar {
-  background: #2f3e5c;
-  color: #ffffff;
+  background: var(--sidebar-bg);
+  color: var(--white);
   padding: 24px 18px;
   display: flex;
   flex-direction: column;
@@ -27,26 +27,24 @@
 
 .nav a {
   text-decoration: none;
-  color: #cfd6e4;
+  color: var(--sidebar-text);
   padding: 10px 12px;
   border-radius: 6px;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
+  display: block;
 }
 
 .nav a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  background: var(--sidebar-hover);
+  color: var(--white);
 }
 
 .nav a.active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background: var(--sidebar-active);
+  color: var(--white);
   font-weight: 600;
 }
 
 .content {
   padding: 32px;
-  background: #f7f8fb;
+  background: var(--gray-light);
 }
