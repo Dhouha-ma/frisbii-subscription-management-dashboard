@@ -18,29 +18,35 @@
 }
 
 @if (!loading() && !error()) {
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Handle</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Company</th>
-          <th>Created</th>
-        </tr>
-      </thead>
+  @if (filteredCustomers().length === 0) {
+    <p class="muted">No customers found.</p>
+  }
 
-      <tbody>
-        @for (customer of filteredCustomers(); track customer.handle) {
-          <tr [routerLink]="['/customers', customer.handle]" class="clickable-row">
-            <td>{{ customer.handle }}</td>
-            <td>{{ customer.first_name }} {{ customer.last_name }}</td>
-            <td>{{ customer.email }}</td>
-            <td>{{ customer.company }}</td>
-            <td>{{ customer.created | date: 'short' }}</td>
+  @if (filteredCustomers().length > 0) {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Handle</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Created</th>
           </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+        </thead>
+
+        <tbody>
+          @for (customer of filteredCustomers(); track customer.handle) {
+            <tr [routerLink]="['/customers', customer.handle]" class="clickable-row">
+              <td>{{ customer.handle }}</td>
+              <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.company }}</td>
+              <td>{{ customer.created | date: 'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 }
