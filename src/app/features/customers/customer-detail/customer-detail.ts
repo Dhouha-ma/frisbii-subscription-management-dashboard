@@ -18,8 +18,8 @@ import { Subscription, SubscriptionState } from '../../../core/models/subscripti
 })
 export class CustomerDetail implements OnInit {
   public customer = signal<Customer | null>(null);
-  public loading = signal(false);
-  public error = signal<string | null>(null);
+  public customerLoading = signal(false);
+  public customerError = signal<string | null>(null);
 
   public invoicesLoading = signal(false);
   public invoicesError = signal<string | null>(null);
@@ -40,7 +40,7 @@ export class CustomerDetail implements OnInit {
     const handle = this.route.snapshot.paramMap.get('handle');
 
     if (!handle) {
-      this.error.set('Invalid customer handle');
+      this.customerError.set('Invalid customer handle');
       return;
     }
 
@@ -113,8 +113,8 @@ export class CustomerDetail implements OnInit {
   }
 
   private loadCustomer(handle: string) {
-    this.loading.set(true);
-    this.error.set(null);
+    this.customerLoading.set(true);
+    this.customerError.set(null);
 
     this.customerService
       .getCustomerByHandle(handle)
@@ -122,11 +122,11 @@ export class CustomerDetail implements OnInit {
       .subscribe({
         next: (customer) => {
           this.customer.set(customer);
-          this.loading.set(false);
+          this.customerLoading.set(false);
         },
         error: () => {
-          this.error.set('Failed to load customer');
-          this.loading.set(false);
+          this.customerError.set('Failed to load customer');
+          this.customerLoading.set(false);
         },
       });
   }

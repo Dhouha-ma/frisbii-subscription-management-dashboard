@@ -1,11 +1,11 @@
 <h2>Customer Details</h2>
 
-@if (loading()) {
+@if (customerLoading()) {
   <p>Loading...</p>
 }
 
-@if (error()) {
-  <p class="error">{{ error() }}</p>
+@if (customerError()) {
+  <p class="error">{{ customerError() }}</p>
 }
 
 @if (customer()) {
