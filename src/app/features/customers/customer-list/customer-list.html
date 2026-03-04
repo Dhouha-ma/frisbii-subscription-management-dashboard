@@ -1,13 +1,9 @@
 <h2>Customers</h2>
 
-<div class="toolbar">
-  <input
-    #searchInput
-    type="search"
-    placeholder="Search by handle..."
-    (input)="onSearch(searchInput.value)"
-  />
-</div>
+<app-search-input
+  placeholder="Search by handle..."
+  (onInput)="handleSearch($event)"
+></app-search-input>
 
 @if (loading()) {
   <p>Loading customers...</p>

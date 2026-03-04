@@ -1,0 +1,17 @@
+.toolbar {
+  margin: 16px 0;
+}
+
+.toolbar input {
+  width: 300px;
+  padding: 10px 12px;
+  border: 1px solid var(--gray-border);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.toolbar input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}

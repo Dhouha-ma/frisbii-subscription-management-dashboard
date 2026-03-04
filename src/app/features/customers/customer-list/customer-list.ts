@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
+import { SearchInput } from '../../../shared/components/search-input/search-input';
 
 @Component({
   selector: 'app-customer-list',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, SearchInput],
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.scss',
 })
@@ -23,7 +24,7 @@ export class CustomerList implements OnInit {
     this.loadCustomers();
   }
 
-  public onSearch(value: string) {
+  public handleSearch(value: string) {
     const term = value.toLowerCase();
 
     if (!term) {
