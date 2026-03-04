@@ -31,7 +31,7 @@
 
     <tbody>
       @for (customer of filteredCustomers(); track customer.handle) {
-        <tr>
+        <tr [routerLink]="['/customers', customer.handle]" class="clickable-row">
           <td>{{ customer.handle }}</td>
           <td>{{ customer.first_name }} {{ customer.last_name }}</td>
           <td>{{ customer.email }}</td>

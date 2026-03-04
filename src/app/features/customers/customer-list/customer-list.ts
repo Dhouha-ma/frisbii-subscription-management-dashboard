@@ -1,12 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
 
 @Component({
   selector: 'app-customer-list',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.scss',
 })
@@ -16,7 +17,6 @@ export class CustomerList implements OnInit {
   public error = signal<string | null>(null);
 
   private customers = signal<Customer[]>([]);
-
   private customerService = inject(CustomerService);
 
   ngOnInit() {

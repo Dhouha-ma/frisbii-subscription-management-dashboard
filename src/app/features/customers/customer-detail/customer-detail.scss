@@ -1,0 +1,29 @@
+h2 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: 10px;
+  padding: 16px;
+  max-width: 600px;
+}
+
+.card p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--gray-dark);
+}
+
+.card strong {
+  color: var(--gray-text);
+}
+
+.error {
+  color: var(--red);
+  margin-top: 10px;
+  font-weight: 500;
+}

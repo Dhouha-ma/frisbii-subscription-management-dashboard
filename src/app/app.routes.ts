@@ -8,15 +8,20 @@ export const routes: Routes = [
       import('./features/customers/customer-list/customer-list').then((m) => m.CustomerList),
   },
   {
-    path: 'subscriptions',
+    path: 'customers/:handle',
     loadComponent: () =>
-      import('./features/subscriptions/subscription-list/subscription-list').then(
-        (m) => m.SubscriptionList,
-      ),
+      import('./features/customers/customer-detail/customer-detail').then((m) => m.CustomerDetail),
   },
-  {
-    path: 'invoices',
-    loadComponent: () =>
-      import('./features/invoices/invoice-list/invoice-list').then((m) => m.InvoiceList),
-  },
+  // {
+  //   path: 'subscriptions',
+  //   loadComponent: () =>
+  //     import('./features/subscriptions/subscription-list/subscription-list').then(
+  //       (m) => m.SubscriptionList,
+  //     ),
+  // },
+  // {
+  //   path: 'invoices',
+  //   loadComponent: () =>
+  //     import('./features/invoices/invoice-list/invoice-list').then((m) => m.InvoiceList),
+  // },
 ];
