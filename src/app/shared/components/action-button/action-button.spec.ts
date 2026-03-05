@@ -13,6 +13,9 @@ describe('ActionButton', () => {
 
     fixture = TestBed.createComponent(ActionButton);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('label', 'Test');
+
     await fixture.whenStable();
   });
 
