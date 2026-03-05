@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './subscription-list.html',
   styleUrl: './subscription-list.scss',
 })
-export class SubscriptionList {
-
-}
+export class SubscriptionList {}
