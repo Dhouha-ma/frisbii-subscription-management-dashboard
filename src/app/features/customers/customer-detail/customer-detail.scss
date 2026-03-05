@@ -79,22 +79,3 @@
 .handle {
   font-weight: 600;
 }
-
-.action-button {
-  border: 1px solid var(--gray-border);
-  background: var(--white);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.action-button:hover {
-  background: var(--gray-light);
-}
-
-.action-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}

@@ -117,25 +117,19 @@
 
               <td>
                 @if (subscriptionBadge(subscription.state) === 'active') {
-                  <button
-                    type="button"
-                    class="action-button"
-                    (click)="pauseSubscription(subscription)"
-                    [disabled]="subscriptionActionLoading() === subscription.handle"
-                  >
-                    Pause
-                  </button>
+                  <app-action-button
+                    label="Pause"
+                    (action)="pauseSubscription(subscription)"
+                    [loading]="subscriptionActionLoading() === subscription.handle"
+                  ></app-action-button>
                 }
 
                 @if (subscriptionBadge(subscription.state) === 'on_hold') {
-                  <button
-                    type="button"
-                    class="action-button"
-                    (click)="unpauseSubscription(subscription)"
-                    [disabled]="subscriptionActionLoading() === subscription.handle"
-                  >
-                    Unpause
-                  </button>
+                  <app-action-button
+                    label="Unpause"
+                    (action)="unpauseSubscription(subscription)"
+                    [loading]="subscriptionActionLoading() === subscription.handle"
+                  ></app-action-button>
                 }
 
                 @if (
