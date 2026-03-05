@@ -10,11 +10,29 @@
 
 @if (customer()) {
   <div class="card">
-    <p><strong>Handle:</strong> {{ customer()?.handle }}</p>
-    <p><strong>Name:</strong> {{ customer()?.first_name }} {{ customer()?.last_name }}</p>
-    <p><strong>Email:</strong> {{ customer()?.email }}</p>
-    <p><strong>Company:</strong> {{ customer()?.company }}</p>
-    <p><strong>Created:</strong> {{ customer()?.created | date }}</p>
+    <h3 class="card-title">{{ customer()?.handle }}</h3>
+
+    <div class="card-grid">
+      <div class="field">
+        <span class="label">Name</span>
+        <span class="value">{{ customer()?.first_name }} {{ customer()?.last_name }}</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Email</span>
+        <span class="value">{{ customer()?.email }}</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Company</span>
+        <span class="value">{{ customer()?.company }}</span>
+      </div>
+
+      <div class="field">
+        <span class="label">Created</span>
+        <span class="value">{{ customer()?.created | date }}</span>
+      </div>
+    </div>
   </div>
 
   <h3 class="section-title">Invoices</h3>
@@ -45,9 +63,7 @@
               <td class="handle">{{ invoice.handle }}</td>
 
               <td>
-                <span class="badge" [class]="'badge--' + invoiceBadge(invoice.state)">
-                  {{ invoiceBadge(invoice.state) }}
-                </span>
+                <app-state-badge [state]="invoice.state"></app-state-badge>
               </td>
 
               <td class="amount">{{ invoice.amount }} {{ invoice.currency }}</td>
@@ -93,9 +109,7 @@
               <td class="handle">{{ subscription.handle }}</td>
 
               <td>
-                <span class="badge" [class]="'badge--' + subscriptionBadge(subscription.state)">
-                  {{ subscriptionBadge(subscription.state) }}
-                </span>
+                <app-state-badge [state]="subscription.state"></app-state-badge>
               </td>
 
               <td>{{ subscription.plan ?? '—' }}</td>

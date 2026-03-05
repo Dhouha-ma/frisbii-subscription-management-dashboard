@@ -1,0 +1,58 @@
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--gray-border);
+  background: var(--gray-light);
+  color: var(--gray-text);
+  text-transform: capitalize;
+}
+
+.badge--created {
+  background: var(--gray-light);
+  color: var(--gray-text);
+  border-color: var(--gray-border);
+}
+
+.badge--pending {
+  background: var(--orange-light);
+  color: var(--orange);
+  border-color: var(--orange-border);
+}
+
+.badge--settled {
+  background: var(--green-light);
+  color: var(--green);
+  border-color: var(--green-border);
+}
+
+.badge--authorized {
+  background: var(--blue-light);
+  color: var(--blue);
+  border-color: var(--blue-border);
+}
+
+.badge--failed {
+  background: var(--red-light);
+  color: var(--red);
+  border-color: var(--red-border);
+}
+
+.badge--active {
+  background: var(--green-light);
+  color: var(--green);
+  border-color: var(--green-border);
+}
+
+.badge--on_hold {
+  background: var(--orange-light);
+  color: var(--orange);
+  border-color: var(--orange-border);
+}
+
+.badge--unknown {
+  background: var(--gray-light);
+  color: var(--gray-text);
+}

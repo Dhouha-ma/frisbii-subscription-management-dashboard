@@ -9,10 +9,11 @@ import { InvoiceService } from '../../../core/services/invoice';
 import { Invoice, InvoiceState } from '../../../core/models/Invoice.model';
 import { SubscriptionService } from '../../../core/services/subscription';
 import { Subscription, SubscriptionState } from '../../../core/models/subscription.model';
+import { StateBadge } from '../../../shared/components/state-badge/state-badge';
 
 @Component({
   selector: 'app-customer-detail',
-  imports: [DatePipe],
+  imports: [DatePipe, StateBadge],
   templateUrl: './customer-detail.html',
   styleUrl: './customer-detail.scss',
 })
