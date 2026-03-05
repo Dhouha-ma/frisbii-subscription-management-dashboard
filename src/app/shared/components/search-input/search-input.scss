@@ -3,15 +3,34 @@
 }
 
 .toolbar input {
-  width: 300px;
-  padding: 10px 12px;
+  width: 320px;
+  padding: 10px 14px;
+  font-size: 14px;
   border: 1px solid var(--gray-border);
   border-radius: 8px;
-  font-size: 14px;
+  background: var(--white);
+  color: var(--gray-dark);
   outline: none;
 }
 
+.toolbar input::placeholder {
+  color: var(--gray-text);
+  opacity: 0.8;
+}
+
 .toolbar input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  border-color: var(--sidebar-bg);
+}
+
+.toolbar input:hover {
+  border-color: var(--gray-text);
+}
+
+.toolbar input::-webkit-search-cancel-button {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.toolbar input::-webkit-search-cancel-button:hover {
+  opacity: 1;
 }
