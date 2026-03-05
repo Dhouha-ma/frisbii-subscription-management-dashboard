@@ -24,4 +24,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/invoices/invoice-list/invoice-list').then((m) => m.InvoiceList),
   },
+  {
+    path: '**',
+    loadComponent: () => import('./shared/pages/not-found/not-found').then((m) => m.NotFound),
+  },
 ];
