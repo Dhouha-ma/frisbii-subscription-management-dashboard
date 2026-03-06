@@ -6,6 +6,7 @@ import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
 import { SearchInput } from '../../../shared/components/search-input/search-input';
 import { Pagination } from '../../../shared/components/pagination/pagination';
+import { paginate } from '../../../shared/utils/pagination.util';
 
 @Component({
   selector: 'app-customer-list',
@@ -32,12 +33,7 @@ export class CustomerList implements OnInit {
     return this.customers().filter((customer) => customer.handle.toLowerCase().includes(term));
   });
 
-  public paginatedCustomers = computed(() => {
-    const start = (this.page() - 1) * this.pageSize();
-    const end = start + this.pageSize();
-
-    return this.filteredCustomers().slice(start, end);
-  });
+  public paginatedCustomers = paginate(this.filteredCustomers, this.page, this.pageSize);
 
   ngOnInit() {
     this.loadCustomers();

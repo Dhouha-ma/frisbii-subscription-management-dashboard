@@ -12,6 +12,7 @@ import { Subscription, SubscriptionState } from '../../../core/models/subscripti
 import { StateBadge } from '../../../shared/components/state-badge/state-badge';
 import { ActionButton } from '../../../shared/components/action-button/action-button';
 import { Pagination } from '../../../shared/components/pagination/pagination';
+import { paginate } from '../../../shared/utils/pagination.util';
 
 @Component({
   selector: 'app-customer-detail',
@@ -37,17 +38,12 @@ export class CustomerDetail implements OnInit {
   public subscriptionsPage = signal(1);
   public subscriptionsPageSize = signal(5);
 
-  public paginatedInvoices = computed(() => {
-    const start = (this.invoicesPage() - 1) * this.invoicesPageSize();
-    const end = start + this.invoicesPageSize();
-    return this.invoices().slice(start, end);
-  });
-
-  public paginatedSubscriptions = computed(() => {
-    const start = (this.subscriptionsPage() - 1) * this.subscriptionsPageSize();
-    const end = start + this.subscriptionsPageSize();
-    return this.subscriptions().slice(start, end);
-  });
+  public paginatedInvoices = paginate(this.invoices, this.invoicesPage, this.invoicesPageSize);
+  public paginatedSubscriptions = paginate(
+    this.subscriptions,
+    this.subscriptionsPage,
+    this.subscriptionsPageSize,
+  );
 
   private route = inject(ActivatedRoute);
   private customerService = inject(CustomerService);
