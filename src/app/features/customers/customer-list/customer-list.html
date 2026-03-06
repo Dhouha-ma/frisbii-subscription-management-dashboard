@@ -32,7 +32,7 @@
         </thead>
 
         <tbody>
-          @for (customer of filteredCustomers(); track customer.handle) {
+          @for (customer of paginatedCustomers(); track customer.handle) {
             <tr [routerLink]="['/customers', customer.handle]" class="clickable-row">
               <td>{{ customer.handle }}</td>
               <td>{{ customer.first_name }} {{ customer.last_name }}</td>
@@ -44,5 +44,15 @@
         </tbody>
       </table>
     </div>
+  }
+
+  @if (filteredCustomers().length > 10) {
+    <app-pagination
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [totalItems]="filteredCustomers().length"
+      [disabled]="loading()"
+      (pageChange)="handlePageChange($event)"
+    />
   }
 }

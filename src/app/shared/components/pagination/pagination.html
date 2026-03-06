@@ -1,0 +1,20 @@
+<nav class="pagination">
+  <button type="button" (click)="goToPrevious()" [disabled]="!hasPrevious() || disabled()">
+    Previous
+  </button>
+
+  <div class="pages">
+    @for (pageNumber of visiblePages(); track pageNumber) {
+      <button
+        type="button"
+        (click)="goToPage(pageNumber)"
+        [disabled]="disabled()"
+        [class.active]="pageNumber === page()"
+      >
+        {{ pageNumber }}
+      </button>
+    }
+  </div>
+
+  <button type="button" (click)="goToNext()" [disabled]="!hasNext() || disabled()">Next</button>
+</nav>

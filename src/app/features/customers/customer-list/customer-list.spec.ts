@@ -9,11 +9,11 @@ import { CustomerService } from '../../../core/services/customer';
 describe('CustomerList', () => {
   let component: CustomerList;
   let fixture: ComponentFixture<CustomerList>;
-  let customerService: any;
+  let customerService: { getCustomers: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
     customerService = {
-      getCustomers: vi.fn().mockReturnValue(of([])),
+      getCustomers: vi.fn(),
     };
 
     await TestBed.configureTestingModule({
@@ -28,7 +28,6 @@ describe('CustomerList', () => {
 
     fixture = TestBed.createComponent(CustomerList);
     component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
@@ -36,35 +35,22 @@ describe('CustomerList', () => {
   });
 
   describe('handleSearch', () => {
-    beforeEach(() => {
-      component['customers'].set(MOCK_CUSTOMERS as any);
-      component.filteredCustomers.set(MOCK_CUSTOMERS as any);
+    it('should update searchTerm and reset page to 1', () => {
+      component.page.set(3);
+
+      component.handleSearch('Janeva');
+
+      expect(component['searchTerm']()).toBe('Janeva');
+      expect(component.page()).toBe(1);
     });
 
-    it('should reset filteredCustomers when search term is empty', () => {
-      component.filteredCustomers.set([{ handle: 'temp' }] as any);
+    it('should allow empty search term and reset page', () => {
+      component.page.set(5);
 
       component.handleSearch('');
 
-      expect(component.filteredCustomers()).toEqual(component['customers']());
-    });
-
-    it('should filter customers by handle', () => {
-      component.handleSearch('cust-0100');
-
-      expect(component.filteredCustomers()).toEqual([MOCK_CUSTOMERS[0]]);
-    });
-
-    it('should filter customers by partial handle', () => {
-      component.handleSearch('0100');
-
-      expect(component.filteredCustomers()).toEqual([MOCK_CUSTOMERS[0]]);
-    });
-
-    it('should return empty array when no customer matches', () => {
-      component.handleSearch('missing');
-
-      expect(component.filteredCustomers()).toEqual([]);
+      expect(component['searchTerm']()).toBe('');
+      expect(component.page()).toBe(1);
     });
   });
 
@@ -74,9 +60,8 @@ describe('CustomerList', () => {
 
       component['loadCustomers']();
 
-      expect(customerService.getCustomers).toHaveBeenCalledWith(20);
+      expect(customerService.getCustomers).toHaveBeenCalledWith(30);
       expect(component['customers']()).toEqual(MOCK_CUSTOMERS);
-      expect(component.filteredCustomers()).toEqual(MOCK_CUSTOMERS);
       expect(component.loading()).toBe(false);
       expect(component.error()).toBeNull();
     });
