@@ -58,7 +58,7 @@
         </thead>
 
         <tbody>
-          @for (invoice of invoices(); track invoice.handle) {
+          @for (invoice of paginatedInvoices(); track invoice.handle) {
             <tr>
               <td class="handle">{{ invoice.handle }}</td>
 
@@ -77,6 +77,16 @@
 
     @if (invoices().length === 0) {
       <p class="muted">No invoices found.</p>
+    }
+
+    @if (invoices().length > 0) {
+      <app-pagination
+        [page]="invoicesPage()"
+        [pageSize]="invoicesPageSize()"
+        [totalItems]="invoices().length"
+        [disabled]="invoicesLoading()"
+        (pageChange)="handleInvoicesPageChange($event)"
+      ></app-pagination>
     }
   }
 
@@ -104,7 +114,7 @@
         </thead>
 
         <tbody>
-          @for (subscription of subscriptions(); track subscription.handle) {
+          @for (subscription of paginatedSubscriptions(); track subscription.handle) {
             <tr>
               <td class="handle">{{ subscription.handle }}</td>
 
@@ -147,6 +157,16 @@
 
     @if (subscriptions().length === 0) {
       <p class="muted">No subscriptions found.</p>
+    }
+
+    @if (subscriptions().length > 0) {
+      <app-pagination
+        [page]="subscriptionsPage()"
+        [pageSize]="subscriptionsPageSize()"
+        [totalItems]="subscriptions().length"
+        [disabled]="subscriptionsLoading()"
+        (pageChange)="handleSubscriptionsPageChange($event)"
+      ></app-pagination>
     }
   }
 }

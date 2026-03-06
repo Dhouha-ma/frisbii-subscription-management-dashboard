@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,10 +11,11 @@ import { SubscriptionService } from '../../../core/services/subscription';
 import { Subscription, SubscriptionState } from '../../../core/models/subscription.model';
 import { StateBadge } from '../../../shared/components/state-badge/state-badge';
 import { ActionButton } from '../../../shared/components/action-button/action-button';
+import { Pagination } from '../../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-customer-detail',
-  imports: [DatePipe, StateBadge, ActionButton],
+  imports: [DatePipe, StateBadge, ActionButton, Pagination],
   templateUrl: './customer-detail.html',
   styleUrl: './customer-detail.scss',
 })
@@ -26,11 +27,27 @@ export class CustomerDetail implements OnInit {
   public invoicesLoading = signal(false);
   public invoicesError = signal<string | null>(null);
   public invoices = signal<Invoice[]>([]);
+  public invoicesPage = signal(1);
+  public invoicesPageSize = signal(5);
 
   public subscriptionsLoading = signal(false);
   public subscriptionsError = signal<string | null>(null);
   public subscriptions = signal<Subscription[]>([]);
   public subscriptionActionLoading = signal<string | null>(null);
+  public subscriptionsPage = signal(1);
+  public subscriptionsPageSize = signal(5);
+
+  public paginatedInvoices = computed(() => {
+    const start = (this.invoicesPage() - 1) * this.invoicesPageSize();
+    const end = start + this.invoicesPageSize();
+    return this.invoices().slice(start, end);
+  });
+
+  public paginatedSubscriptions = computed(() => {
+    const start = (this.subscriptionsPage() - 1) * this.subscriptionsPageSize();
+    const end = start + this.subscriptionsPageSize();
+    return this.subscriptions().slice(start, end);
+  });
 
   private route = inject(ActivatedRoute);
   private customerService = inject(CustomerService);
@@ -49,6 +66,14 @@ export class CustomerDetail implements OnInit {
     this.loadCustomer(handle);
     this.loadInvoices(handle);
     this.loadSubscriptions(handle);
+  }
+
+  public handleInvoicesPageChange(page: number) {
+    this.invoicesPage.set(page);
+  }
+
+  public handleSubscriptionsPageChange(page: number) {
+    this.subscriptionsPage.set(page);
   }
 
   public subscriptionBadge(state?: string): SubscriptionState {
@@ -143,6 +168,7 @@ export class CustomerDetail implements OnInit {
       .subscribe({
         next: (list) => {
           this.invoices.set(list);
+          this.invoicesPage.set(1);
           this.invoicesLoading.set(false);
         },
         error: () => {
@@ -162,6 +188,7 @@ export class CustomerDetail implements OnInit {
       .subscribe({
         next: (list) => {
           this.subscriptions.set(list);
+          this.subscriptionsPage.set(1);
           this.subscriptionsLoading.set(false);
         },
         error: () => {
