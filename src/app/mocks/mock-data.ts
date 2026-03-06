@@ -38,7 +38,7 @@ export const MOCK_INVOICES: Invoice[] = [
   },
 ];
 
-export const MOCK_SUBSCRIPTION: Subscription[] = [
+export const MOCK_SUBSCRIPTIONS: Subscription[] = [
   {
     handle: 'sub-0002',
     state: 'active',

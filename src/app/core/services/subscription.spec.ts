@@ -5,12 +5,12 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { SubscriptionService } from './subscription';
 import { environment } from '../../../environments/environment';
 import { Subscription } from '../models/subscription.model';
-import { MOCK_SUBSCRIPTION } from '../../mocks/mock-data';
+import { MOCK_SUBSCRIPTIONS } from '../../mocks/mock-data';
 
 describe('Subscription', () => {
   let service: SubscriptionService;
   let httpMock: HttpTestingController;
-  const mockSubscriptions = MOCK_SUBSCRIPTION;
+  const mockSubscriptions = MOCK_SUBSCRIPTIONS;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
