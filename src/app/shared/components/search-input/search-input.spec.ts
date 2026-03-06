@@ -19,4 +19,23 @@ describe('SearchInput', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onSearch', () => {
+    it('should emit input value', () => {
+      const emitSpy = vi.spyOn(component.onInput, 'emit');
+
+      component.onSearch('john');
+
+      expect(emitSpy).toHaveBeenCalledWith('john');
+      expect(emitSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit empty string when input is empty', () => {
+      const emitSpy = vi.spyOn(component.onInput, 'emit');
+
+      component.onSearch('');
+
+      expect(emitSpy).toHaveBeenCalledWith('');
+    });
+  });
 });

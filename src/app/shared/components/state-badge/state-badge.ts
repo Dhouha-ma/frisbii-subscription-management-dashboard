@@ -8,7 +8,6 @@ import { Component, computed, input } from '@angular/core';
 })
 export class StateBadge {
   state = input<string | undefined>();
-
   availableState = computed(() => {
     const value = (this.state() ?? '').toLowerCase();
 

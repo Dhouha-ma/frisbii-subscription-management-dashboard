@@ -11,7 +11,7 @@ export class ActionButton {
   public loading = input(false);
   public action = output<void>();
 
-  handleClick() {
+  public handleClick() {
     if (!this.loading()) {
       this.action.emit();
     }
