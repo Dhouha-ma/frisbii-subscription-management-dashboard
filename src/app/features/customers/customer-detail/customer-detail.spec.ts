@@ -181,7 +181,7 @@ describe('CustomerDetail', () => {
 
       component['loadInvoices']('cus-0001');
 
-      expect(invoiceService.getInvoicesByCustomer).toHaveBeenCalledWith('cus-0001', 10);
+      expect(invoiceService.getInvoicesByCustomer).toHaveBeenCalledWith('cus-0001', 15);
       expect(component.invoices()).toEqual(MOCK_INVOICES);
       expect(component.invoicesError()).toBeNull();
       expect(component.invoicesLoading()).toBe(false);
@@ -196,7 +196,7 @@ describe('CustomerDetail', () => {
 
       component['loadSubscriptions']('cus-0001');
 
-      expect(subscriptionService.getSubscriptionByCustomer).toHaveBeenCalledWith('cus-0001', 10);
+      expect(subscriptionService.getSubscriptionByCustomer).toHaveBeenCalledWith('cus-0001', 15);
       expect(component.subscriptions()).toEqual(MOCK_SUBSCRIPTIONS);
       expect(component.subscriptionsError()).toBeNull();
       expect(component.subscriptionsLoading()).toBe(false);

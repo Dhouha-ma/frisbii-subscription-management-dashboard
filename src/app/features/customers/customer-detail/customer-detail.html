@@ -79,7 +79,7 @@
       <p class="muted">No invoices found.</p>
     }
 
-    @if (invoices().length > 0) {
+    @if (invoices().length > 5) {
       <app-pagination
         [page]="invoicesPage()"
         [pageSize]="invoicesPageSize()"
@@ -159,7 +159,7 @@
       <p class="muted">No subscriptions found.</p>
     }
 
-    @if (subscriptions().length > 0) {
+    @if (subscriptions().length > 5) {
       <app-pagination
         [page]="subscriptionsPage()"
         [pageSize]="subscriptionsPageSize()"

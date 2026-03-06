@@ -163,7 +163,7 @@ export class CustomerDetail implements OnInit {
     this.invoicesError.set(null);
 
     this.invoiceService
-      .getInvoicesByCustomer(customerHandle, 10)
+      .getInvoicesByCustomer(customerHandle, 15)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (list) => {
@@ -183,7 +183,7 @@ export class CustomerDetail implements OnInit {
     this.subscriptionsError.set(null);
 
     this.subscriptionService
-      .getSubscriptionByCustomer(customerHandle, 10)
+      .getSubscriptionByCustomer(customerHandle, 15)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (list) => {
