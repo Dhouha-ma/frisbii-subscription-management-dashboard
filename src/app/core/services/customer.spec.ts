@@ -5,28 +5,12 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { CustomerService } from './customer';
 import { environment } from '../../../environments/environment';
 import { Customer, PageList } from '../models/customer.model';
+import { MOCK_CUSTOMERS } from '../../mocks/mock-data';
 
 describe('Customer', () => {
   let service: CustomerService;
   let httpMock: HttpTestingController;
-  const mockCustomers: Customer[] = [
-    {
-      handle: 'cust-0100',
-      first_name: 'Janeva',
-      last_name: 'Rauprich',
-      email: 'jrauprich2r@indiegogo.com',
-      company: 'Tazzy',
-      created: '2024-01-01T10:00:00Z',
-    },
-    {
-      handle: 'cust-0099',
-      first_name: 'Fayette ',
-      last_name: 'Van den Velde',
-      email: 'fvandenvelde2q@nature.com',
-      company: 'Yata',
-      created: '2024-01-02T10:00:00Z',
-    },
-  ];
+  const mockCustomers = MOCK_CUSTOMERS;
   const mockResponse: PageList<Customer> = {
     content: mockCustomers,
   } as PageList<Customer>;

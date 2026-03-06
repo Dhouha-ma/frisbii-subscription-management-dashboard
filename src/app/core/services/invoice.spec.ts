@@ -5,26 +5,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { InvoiceService } from './invoice';
 import { environment } from '../../../environments/environment';
 import { Invoice } from '../models/Invoice.model';
+import { MOCK_INVOICES } from '../../mocks/mock-data';
 
 describe('Invoice', () => {
   let service: InvoiceService;
   let httpMock: HttpTestingController;
-  const mockInvoices: Invoice[] = [
-    {
-      handle: 'inv-44',
-      state: 'settled',
-      amount: 9343,
-      currency: 'USD',
-      created: '2024-01-10T10:00:00Z',
-    },
-    {
-      handle: 'inv-43',
-      state: 'pending',
-      amount: 8385,
-      currency: 'USD',
-      created: '2024-01-12T10:00:00Z',
-    },
-  ];
+  const mockInvoices = MOCK_INVOICES;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

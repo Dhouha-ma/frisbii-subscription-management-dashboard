@@ -5,24 +5,12 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { SubscriptionService } from './subscription';
 import { environment } from '../../../environments/environment';
 import { Subscription } from '../models/subscription.model';
+import { MOCK_SUBSCRIPTION } from '../../mocks/mock-data';
 
 describe('Subscription', () => {
   let service: SubscriptionService;
   let httpMock: HttpTestingController;
-  const mockSubscriptions: Subscription[] = [
-    {
-      handle: 'sub-0002',
-      state: 'active',
-      plan: 'p-1772522716092',
-      created: '2024-01-01T10:00:00Z',
-    },
-    {
-      handle: 's-1772522743983',
-      state: 'on_hold',
-      plan: 'p-1772522716660',
-      created: '2024-01-05T10:00:00Z',
-    },
-  ];
+  const mockSubscriptions = MOCK_SUBSCRIPTION;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
