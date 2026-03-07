@@ -89,40 +89,48 @@ export class CustomerDetail implements OnInit {
 
   public pauseSubscription(subscription: Subscription) {
     this.subscriptionActionLoading.set(subscription.handle);
+    this.subscriptionsError.set(null);
 
-    this.subscriptionService.pauseSubscription(subscription.handle).subscribe({
-      next: () => {
-        this.subscriptions.update((list) =>
-          list.map((sub) =>
-            sub.handle === subscription.handle ? { ...sub, state: 'on_hold' } : sub,
-          ),
-        );
-        this.subscriptionActionLoading.set(null);
-      },
-      error: () => {
-        this.subscriptionsError.set('Failed to pause subscription');
-        this.subscriptionActionLoading.set(null);
-      },
-    });
+    this.subscriptionService
+      .pauseSubscription(subscription.handle)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.subscriptions.update((list) =>
+            list.map((sub) =>
+              sub.handle === subscription.handle ? { ...sub, state: 'on_hold' } : sub,
+            ),
+          );
+          this.subscriptionActionLoading.set(null);
+        },
+        error: (error: Error) => {
+          this.subscriptionsError.set(error.message);
+          this.subscriptionActionLoading.set(null);
+        },
+      });
   }
 
   public unpauseSubscription(subscription: Subscription) {
     this.subscriptionActionLoading.set(subscription.handle);
+    this.subscriptionsError.set(null);
 
-    this.subscriptionService.unpauseSubscription(subscription.handle).subscribe({
-      next: () => {
-        this.subscriptions.update((list) =>
-          list.map((sub) =>
-            sub.handle === subscription.handle ? { ...sub, state: 'active' } : sub,
-          ),
-        );
-        this.subscriptionActionLoading.set(null);
-      },
-      error: () => {
-        this.subscriptionsError.set('Failed to unpause subscription');
-        this.subscriptionActionLoading.set(null);
-      },
-    });
+    this.subscriptionService
+      .unpauseSubscription(subscription.handle)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.subscriptions.update((list) =>
+            list.map((sub) =>
+              sub.handle === subscription.handle ? { ...sub, state: 'active' } : sub,
+            ),
+          );
+          this.subscriptionActionLoading.set(null);
+        },
+        error: (error: Error) => {
+          this.subscriptionsError.set(error.message);
+          this.subscriptionActionLoading.set(null);
+        },
+      });
   }
 
   public invoiceBadge(state?: string): InvoiceState {
@@ -147,8 +155,8 @@ export class CustomerDetail implements OnInit {
           this.customer.set(customer);
           this.customerLoading.set(false);
         },
-        error: () => {
-          this.customerError.set('Failed to load customer');
+        error: (error: Error) => {
+          this.customerError.set(error.message);
           this.customerLoading.set(false);
         },
       });
@@ -167,8 +175,8 @@ export class CustomerDetail implements OnInit {
           this.invoicesPage.set(1);
           this.invoicesLoading.set(false);
         },
-        error: () => {
-          this.invoicesError.set('Failed to load invoices');
+        error: (error: Error) => {
+          this.invoicesError.set(error.message);
           this.invoicesLoading.set(false);
         },
       });
@@ -187,8 +195,8 @@ export class CustomerDetail implements OnInit {
           this.subscriptionsPage.set(1);
           this.subscriptionsLoading.set(false);
         },
-        error: () => {
-          this.subscriptionsError.set('Failed to load invoices');
+        error: (error: Error) => {
+          this.subscriptionsError.set(error.message);
           this.subscriptionsLoading.set(false);
         },
       });
