@@ -1,10 +1,23 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 240px 1fr;
-  min-height: 100vh;
+  height: 100vh;
+}
+
+app-sidebar {
+  height: 100%;
 }
 
 .content {
   padding: 32px;
   background: var(--gray-light);
+  box-sizing: border-box;
+  overflow: auto;
 }
