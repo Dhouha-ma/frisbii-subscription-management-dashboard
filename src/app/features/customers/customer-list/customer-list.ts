@@ -57,8 +57,8 @@ export class CustomerList implements OnInit {
         this.customers.set(data);
         this.loading.set(false);
       },
-      error: () => {
-        this.error.set('Failed to load customers');
+      error: (error: Error) => {
+        this.error.set(error.message);
         this.loading.set(false);
       },
     });
