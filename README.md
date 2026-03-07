@@ -1,59 +1,93 @@
-# FrisbiiSubscriptionManagementDashboard
+# Frisbii Subscription Management Dashboard
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
 
-## Development server
+The application provides a dashboard to manage **customers, subscriptions, and invoices**.  
+It includes features such as search, pagination, and subscription state management.
 
-To start a local development server, run:
+---
+
+## Development Server
+
+To start the development server run:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open your browser at:
 
-## Code scaffolding
+http://localhost:4200/
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The app will automatically reload when you change the source files.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Routing & Lazy Loading
 
-```bash
-ng generate --help
-```
+The application uses **Angular Router** and lazy loading to load feature modules only when they are needed.
 
-## Building
+---
 
-To build the project run:
+## Signals & Change Detection
 
-```bash
-ng build
-```
+State management in the application is implemented using **Angular Signals**.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Signals are used to store UI state such as loading states, errors, and paginated data.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## HTTP Interceptor
+
+An **HTTP interceptor** is used to attach authentication headers to API requests.
+
+---
+
+## UI & Responsiveness
+
+The UI is designed to be **clean and responsive**, so the dashboard works well on different screen sizes.
+
+---
+
+## Pagination
+
+Pagination is implemented for:
+
+- Customers
+- Invoices
+- Subscriptions
+
+Ideally pagination would be handled by the backend API.  
+However, the provided API does not expose a `page` parameter.
+
+Because of this limitation, **client-side pagination** is implemented in the frontend.
+
+A reusable **Pagination component** together with Angular Signals is used to handle pagination.
+
+---
+
+## TypeScript & Code Quality
+
+The project uses **strict TypeScript typing**.
+
+All models, services, and component logic are strongly typed to improve maintainability and reduce runtime errors.
+
+---
+
+## Centralized Error Handling
+
+API errors are handled in a consistent way using a shared `handleHttpError` utility.
+
+Services use RxJS `catchError` to convert HTTP errors into readable error messages that components can display.
+
+---
+
+## Unit Testing
+
+Unit tests cover the most important logic to ensure the core functionality works as expected.
+
+To run the tests:
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
