@@ -15,8 +15,9 @@ export class InvoiceService {
 
   public getInvoicesByCustomer(customerHandle: string, size = 10): Observable<Invoice[]> {
     const params = new HttpParams().set('customer', customerHandle).set('size', size);
+    const url = `${environment.apiUrl}/list/invoice`;
 
-    return this.http.get<PageList<Invoice>>(`${environment.apiUrl}/list/invoice`, { params }).pipe(
+    return this.http.get<PageList<Invoice>>(url, { params }).pipe(
       map((result) => result.content),
       shareReplay(1),
       catchError(handleHttpError('Failed to load invoices')),

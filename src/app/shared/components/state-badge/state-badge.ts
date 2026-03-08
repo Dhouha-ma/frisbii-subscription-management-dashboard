@@ -7,8 +7,8 @@ import { Component, computed, input } from '@angular/core';
   styleUrl: './state-badge.scss',
 })
 export class StateBadge {
-  state = input<string | undefined>();
-  availableState = computed(() => {
+  public state = input<string | undefined>();
+  public availableState = computed(() => {
     const value = (this.state() ?? '').toLowerCase();
 
     const allowed = [

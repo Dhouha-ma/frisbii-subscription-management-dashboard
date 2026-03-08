@@ -15,25 +15,28 @@ export class SubscriptionService {
 
   public getSubscriptionByCustomer(customerHandle: string, size = 10): Observable<Subscription[]> {
     const params = new HttpParams().set('customer', customerHandle).set('size', size);
+    const url = `${environment.apiUrl}/list/subscription`;
 
-    return this.http
-      .get<PageList<Subscription>>(`${environment.apiUrl}/list/subscription`, { params })
-      .pipe(
-        map((result) => result.content),
-        shareReplay(1),
-        catchError(handleHttpError('Failed to load subscriptions')),
-      );
+    return this.http.get<PageList<Subscription>>(url, { params }).pipe(
+      map((result) => result.content),
+      shareReplay(1),
+      catchError(handleHttpError('Failed to load subscriptions')),
+    );
   }
 
   public pauseSubscription(handle: string) {
+    const url = `${environment.apiUrl}/subscription/${handle}/on_hold`;
+
     return this.http
-      .post<void>(`${environment.apiUrl}/subscription/${handle}/on_hold`, {})
+      .post<void>(url, {})
       .pipe(catchError(handleHttpError('Failed to pause subscription')));
   }
 
   public unpauseSubscription(handle: string) {
+    const url = `${environment.apiUrl}/subscription/${handle}/reactivate`;
+
     return this.http
-      .post<void>(`${environment.apiUrl}/subscription/${handle}/reactivate`, {})
+      .post<void>(url, {})
       .pipe(catchError(handleHttpError('Failed to unpause subscription')));
   }
 }

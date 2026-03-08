@@ -1,6 +1,7 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
@@ -19,12 +20,6 @@ export class CustomerList implements OnInit {
   public error = signal<string | null>(null);
   public page = signal(1);
   public pageSize = signal(10);
-
-  private customers = signal<Customer[]>([]);
-  private searchTerm = signal('');
-
-  private customerService = inject(CustomerService);
-
   public filteredCustomers = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
 
@@ -32,8 +27,12 @@ export class CustomerList implements OnInit {
 
     return this.customers().filter((customer) => customer.handle.toLowerCase().includes(term));
   });
-
   public paginatedCustomers = paginate(this.filteredCustomers, this.page, this.pageSize);
+
+  private customers = signal<Customer[]>([]);
+  private searchTerm = signal('');
+  private customerService = inject(CustomerService);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this.loadCustomers();
@@ -49,18 +48,22 @@ export class CustomerList implements OnInit {
   }
 
   private loadCustomers() {
+    const listSize = 30;
     this.loading.set(true);
     this.error.set(null);
 
-    this.customerService.getCustomers(30).subscribe({
-      next: (data) => {
-        this.customers.set(data);
-        this.loading.set(false);
-      },
-      error: (error: Error) => {
-        this.error.set(error.message);
-        this.loading.set(false);
-      },
-    });
+    this.customerService
+      .getCustomers(listSize)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.customers.set(data);
+          this.loading.set(false);
+        },
+        error: (error: Error) => {
+          this.error.set(error.message);
+          this.loading.set(false);
+        },
+      });
   }
 }

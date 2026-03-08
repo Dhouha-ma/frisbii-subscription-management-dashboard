@@ -15,19 +15,20 @@ export class CustomerService {
 
   public getCustomers(size = 20): Observable<Customer[]> {
     const params = new HttpParams().set('size', size);
+    const url = `${environment.apiUrl}/list/customer`;
 
-    return this.http
-      .get<PageList<Customer>>(`${environment.apiUrl}/list/customer`, { params })
-      .pipe(
-        map((result) => result.content),
-        shareReplay(1),
-        catchError(handleHttpError('Failed to load customers')),
-      );
+    return this.http.get<PageList<Customer>>(url, { params }).pipe(
+      map((result) => result.content),
+      shareReplay(1),
+      catchError(handleHttpError('Failed to load customers')),
+    );
   }
 
   public getCustomerByHandle(handle: string): Observable<Customer> {
+    const url = `${environment.apiUrl}/customer/${handle}`;
+
     return this.http
-      .get<Customer>(`${environment.apiUrl}/customer/${handle}`)
+      .get<Customer>(url)
       .pipe(catchError(handleHttpError('Failed to load customer')));
   }
 }

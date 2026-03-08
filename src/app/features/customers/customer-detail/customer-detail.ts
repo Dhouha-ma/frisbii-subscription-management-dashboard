@@ -30,6 +30,7 @@ export class CustomerDetail implements OnInit {
   public invoices = signal<Invoice[]>([]);
   public invoicesPage = signal(1);
   public invoicesPageSize = signal(5);
+  public paginatedInvoices = paginate(this.invoices, this.invoicesPage, this.invoicesPageSize);
 
   public subscriptionsLoading = signal(false);
   public subscriptionsError = signal<string | null>(null);
@@ -37,8 +38,6 @@ export class CustomerDetail implements OnInit {
   public subscriptionActionLoading = signal<string | null>(null);
   public subscriptionsPage = signal(1);
   public subscriptionsPageSize = signal(5);
-
-  public paginatedInvoices = paginate(this.invoices, this.invoicesPage, this.invoicesPageSize);
   public paginatedSubscriptions = paginate(
     this.subscriptions,
     this.subscriptionsPage,
@@ -73,7 +72,9 @@ export class CustomerDetail implements OnInit {
   }
 
   public subscriptionBadge(state?: string): SubscriptionState {
-    switch ((state ?? '').toLowerCase()) {
+    const subscriptionState = (state ?? '').toLowerCase();
+
+    switch (subscriptionState) {
       case SubscriptionState.Active:
         return SubscriptionState.Active;
       case SubscriptionState.Cancelled:
@@ -96,11 +97,7 @@ export class CustomerDetail implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.subscriptions.update((list) =>
-            list.map((sub) =>
-              sub.handle === subscription.handle ? { ...sub, state: 'on_hold' } : sub,
-            ),
-          );
+          this.updateSubscription(subscription, 'on_hold');
           this.subscriptionActionLoading.set(null);
         },
         error: (error: Error) => {
@@ -119,11 +116,7 @@ export class CustomerDetail implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.subscriptions.update((list) =>
-            list.map((sub) =>
-              sub.handle === subscription.handle ? { ...sub, state: 'active' } : sub,
-            ),
-          );
+          this.updateSubscription(subscription, 'active');
           this.subscriptionActionLoading.set(null);
         },
         error: (error: Error) => {
@@ -141,6 +134,12 @@ export class CustomerDetail implements OnInit {
     }
 
     return InvoiceState.Unknown;
+  }
+
+  private updateSubscription(subscription: Subscription, state: string) {
+    this.subscriptions.update((list) =>
+      list.map((sub) => (sub.handle === subscription.handle ? { ...sub, state } : sub)),
+    );
   }
 
   private loadCustomer(handle: string) {
@@ -163,11 +162,12 @@ export class CustomerDetail implements OnInit {
   }
 
   private loadInvoices(customerHandle: string) {
+    const listSize = 15;
     this.invoicesLoading.set(true);
     this.invoicesError.set(null);
 
     this.invoiceService
-      .getInvoicesByCustomer(customerHandle, 15)
+      .getInvoicesByCustomer(customerHandle, listSize)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (list) => {
@@ -183,11 +183,12 @@ export class CustomerDetail implements OnInit {
   }
 
   private loadSubscriptions(customerHandle: string) {
+    const listSize = 15;
     this.subscriptionsLoading.set(true);
     this.subscriptionsError.set(null);
 
     this.subscriptionService
-      .getSubscriptionByCustomer(customerHandle, 15)
+      .getSubscriptionByCustomer(customerHandle, listSize)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (list) => {
