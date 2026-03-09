@@ -4,7 +4,7 @@ export interface PageList<T> {
 
 export interface Subscription {
   handle: string;
-  state?: string;
+  state?: SubscriptionState;
   plan?: string;
   created: string;
 }

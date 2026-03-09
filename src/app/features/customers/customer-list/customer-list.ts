@@ -3,6 +3,9 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer';
 import { SearchInput } from '../../../shared/components/search-input/search-input';
@@ -31,16 +34,26 @@ export class CustomerList implements OnInit {
 
   private customers = signal<Customer[]>([]);
   private searchTerm = signal('');
+  private searchSubject = new Subject<string>();
   private customerService = inject(CustomerService);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this.loadCustomers();
+    this.setupSearch();
   }
 
   public handleSearch(value: string) {
-    this.searchTerm.set(value);
-    this.page.set(1);
+    this.searchSubject.next(value);
+  }
+
+  private setupSearch() {
+    this.searchSubject
+      .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.searchTerm.set(value);
+        this.page.set(1);
+      });
   }
 
   public handlePageChange(page: number) {

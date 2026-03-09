@@ -5,7 +5,7 @@ export interface PageList<T> {
 export interface Invoice {
   id?: string;
   handle: string;
-  state?: string;
+  state?: InvoiceState;
   amount?: number;
   currency?: string;
   created: string;

@@ -1,6 +1,6 @@
 import { Customer } from '../core/models/customer.model';
-import { Invoice } from '../core/models/Invoice.model';
-import { Subscription } from '../core/models/subscription.model';
+import { Invoice, InvoiceState } from '../core/models/Invoice.model';
+import { Subscription, SubscriptionState } from '../core/models/subscription.model';
 
 export const MOCK_CUSTOMERS: Customer[] = [
   {
@@ -24,14 +24,14 @@ export const MOCK_CUSTOMERS: Customer[] = [
 export const MOCK_INVOICES: Invoice[] = [
   {
     handle: 'inv-44',
-    state: 'settled',
+    state: InvoiceState.Settled,
     amount: 9343,
     currency: 'USD',
     created: '2024-01-10T10:00:00Z',
   },
   {
     handle: 'inv-43',
-    state: 'pending',
+    state: InvoiceState.Pending,
     amount: 8385,
     currency: 'USD',
     created: '2024-01-12T10:00:00Z',
@@ -41,13 +41,13 @@ export const MOCK_INVOICES: Invoice[] = [
 export const MOCK_SUBSCRIPTIONS: Subscription[] = [
   {
     handle: 'sub-0002',
-    state: 'active',
+    state: SubscriptionState.Active,
     plan: 'p-1772522716092',
     created: '2024-01-01T10:00:00Z',
   },
   {
     handle: 's-1772522743983',
-    state: 'on_hold',
+    state: SubscriptionState.OnHold,
     plan: 'p-1772522716660',
     created: '2024-01-05T10:00:00Z',
   },

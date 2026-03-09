@@ -71,8 +71,8 @@ export class CustomerDetail implements OnInit {
     this.subscriptionsPage.set(page);
   }
 
-  public subscriptionBadge(state?: string): SubscriptionState {
-    const subscriptionState = (state ?? '').toLowerCase();
+  public subscriptionBadge(state?: SubscriptionState): SubscriptionState {
+    const subscriptionState = (state ?? '').toLowerCase() as SubscriptionState;
 
     switch (subscriptionState) {
       case SubscriptionState.Active:
@@ -97,7 +97,7 @@ export class CustomerDetail implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.updateSubscription(subscription, 'on_hold');
+          this.updateSubscription(subscription, SubscriptionState.OnHold);
           this.subscriptionActionLoading.set(null);
         },
         error: (error: Error) => {
@@ -116,7 +116,7 @@ export class CustomerDetail implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.updateSubscription(subscription, 'active');
+          this.updateSubscription(subscription, SubscriptionState.Active);
           this.subscriptionActionLoading.set(null);
         },
         error: (error: Error) => {
@@ -126,17 +126,17 @@ export class CustomerDetail implements OnInit {
       });
   }
 
-  public invoiceBadge(state?: string): InvoiceState {
-    const invoiceState = (state ?? '').toLowerCase();
+  public invoiceBadge(state?: InvoiceState): InvoiceState {
+    const invoiceState = (state ?? '').toLowerCase() as InvoiceState;
 
-    if (Object.values(InvoiceState).includes(invoiceState as InvoiceState)) {
-      return invoiceState as InvoiceState;
+    if (Object.values(InvoiceState).includes(invoiceState)) {
+      return invoiceState;
     }
 
     return InvoiceState.Unknown;
   }
 
-  private updateSubscription(subscription: Subscription, state: string) {
+  private updateSubscription(subscription: Subscription, state: SubscriptionState) {
     this.subscriptions.update((list) =>
       list.map((sub) => (sub.handle === subscription.handle ? { ...sub, state } : sub)),
     );
